@@ -1,0 +1,5 @@
+.pytest_cache
+/dev/*
+pull-requests.json
+repos-list.json
+*/__pycache__/*
