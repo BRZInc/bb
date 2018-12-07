@@ -1,0 +1,135 @@
+{
+  "size": 3,
+  "limit": 25,
+  "isLastPage": true,
+  "values": [
+    {
+      "slug": "repo1-slug",
+      "id": 111,
+      "name": "Repo1",
+      "scmId": "git",
+      "state": "AVAILABLE",
+      "statusMessage": "Available",
+      "forkable": true,
+      "project": {
+        "key": "rp1",
+        "id": 1,
+        "name": "Repo 1 Name",
+        "description": "Repo 1 Description",
+        "public": false,
+        "type": "NORMAL",
+        "links": {
+          "self": [
+            {
+              "href": "https://bitbucket.somecorp.com/projects/rp1"
+            }
+          ]
+        }
+      },
+      "public": false,
+      "links": {
+        "clone": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/scm/rp1/repo1-slug.git",
+            "name": "http"
+          },
+          {
+            "href": "ssh://git@bitbucket.somecorp.com:9999/rp1/repo1-slug.git",
+            "name": "ssh"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/projects/rp1/repos/repo1-slug/browse"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "repo2-slug",
+      "id": 111,
+      "name": "Repo2",
+      "scmId": "git",
+      "state": "AVAILABLE",
+      "statusMessage": "Available",
+      "forkable": true,
+      "project": {
+        "key": "rp2",
+        "id": 1,
+        "name": "Repo 2 Name",
+        "description": "Repo 2 Description",
+        "public": false,
+        "type": "NORMAL",
+        "links": {
+          "self": [
+            {
+              "href": "https://bitbucket.somecorp.com/projects/rp2"
+            }
+          ]
+        }
+      },
+      "public": false,
+      "links": {
+        "clone": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/scm/rp2/repo2-slug.git",
+            "name": "http"
+          },
+          {
+            "href": "ssh://git@bitbucket.somecorp.com:9999/rp2/repo2-slug.git",
+            "name": "ssh"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/projects/rp2/repos/repo2-slug/browse"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "repo3-slug",
+      "id": 111,
+      "name": "Repo3",
+      "scmId": "git",
+      "state": "AVAILABLE",
+      "statusMessage": "Available",
+      "forkable": true,
+      "project": {
+        "key": "rp3",
+        "id": 1,
+        "name": "Repo 3 Name",
+        "description": "Repo 3 Description",
+        "public": false,
+        "type": "NORMAL",
+        "links": {
+          "self": [
+            {
+              "href": "https://bitbucket.somecorp.com/projects/rp3"
+            }
+          ]
+        }
+      },
+      "public": false,
+      "links": {
+        "clone": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/scm/rp3/repo3-slug.git",
+            "name": "http"
+          },
+          {
+            "href": "ssh://git@bitbucket.somecorp.com:9999/rp3/repo3-slug.git",
+            "name": "ssh"
+          }
+        ],
+        "self": [
+          {
+            "href": "https://xxx@bitbucket.somecorp.com/projects/rp3/repos/repo3-slug/browse"
+          }
+        ]
+      }
+    }
+  ],
+  "start": 0,
+  "nextPageStart": 0
+}
