@@ -1,9 +1,9 @@
 import pytest
 import unittest
 from unittest.mock import patch
-from bit_bucket_downloader import BitBucketDownloader
+from downloader.bit_bucket_downloader import BitBucketDownloader
 
-@patch('bit_bucket_downloader.requests')
+@patch('downloader.bit_bucket_downloader.requests')
 def test_get_all_repos(mocked_request):
 	print(__name__)
 	url = "https://somecorp.bitbucket.org/rest/api/latest/projects/SomeProject/repos/"
