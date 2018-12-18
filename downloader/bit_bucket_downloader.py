@@ -6,5 +6,12 @@ class BitBucketDownloader():
 		self.url = url
 
 	def get_all_repos(self):
-		response = requests.get(self.url, {})
-		return response
+		try:
+			response = requests.get(self.url, {})
+			if response.OK:
+				return response.json()
+			else:
+				return None
+		except:
+			# TODO: Add logging here later on
+			return None
