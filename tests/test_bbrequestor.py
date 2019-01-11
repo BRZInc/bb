@@ -1,7 +1,9 @@
 import pytest
 import unittest
+import json
 from unittest.mock import patch
 from downloader.bbrequestor import BitBucketRequestor
+from downloader.repo import Repo
 
 
 class TestBitBucketRequestor(object):
@@ -11,8 +13,9 @@ class TestBitBucketRequestor(object):
 	repo = "SomeRepo"
 
 	@pytest.fixture(scope="class")
-	def simple_json(self):
-		return "{'a key': 'a value'}"
+	def repos_json(self):
+		with open("tests/repos-dummy-list.json", "r") as f:
+			return json.load(f)
 
 	@patch('downloader.bbrequestor.requests')
 	def test_get_all_repos(self, mocked_request):
@@ -30,13 +33,33 @@ class TestBitBucketRequestor(object):
 		assert r == []
 
 	@patch('downloader.bbrequestor.requests')
-	def test_get_all_repos_status_200(self, mocked_request, simple_json):
+	def test_get_all_repos_status_200(self, mocked_request, repos_json):
 		mocked_request.get.return_value.OK = True
-		mocked_request.get.return_value.json.return_value = simple_json
+		mocked_request.get.return_value.json.return_value = repos_json
 
 		b = BitBucketRequestor(self.url)
 		r = b.get_all_repos(self.project)
-		assert r == simple_json
+		assert type(r) == list
+		assert len(r) == 3
+		assert isinstance(r[0], Repo)
+
+	@patch('downloader.bbrequestor.requests')
+	def test_get_all_repos_none_repos(self, mocked_request):
+		mocked_request.get.return_value.OK = True
+		mocked_request.get.return_value.json.return_value = {"values": None}
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_repos(self.project)
+		assert r == []
+
+	@patch('downloader.bbrequestor.requests')
+	def test_get_all_repos_no_values_key(self, mocked_request):
+		mocked_request.get.return_value.OK = True
+		mocked_request.get.return_value.json.return_value = {}
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_repos(self.project)
+		assert r == []
 
 	@patch('downloader.bbrequestor.requests')
 	def test_get_all_repos_bad_response(self, mocked_request):
