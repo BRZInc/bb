@@ -11,12 +11,12 @@ class BitBucketRequestor():
 
     def get_all_repos(self, project):
         try:
-            print(self.__build_repos_url(project))
+            #print(self.__build_repos_url(project))
             response = requests.get(self.__build_repos_url(project), {})
             repos = []
             if response.OK:
                 j = response.json()
-                for r in j.get("values", None):
+                for r in j.get("values", []):
                     repos.append(Repo(r["slug"], r["id"], r["name"], r["state"], r["project"]["id"], r["forkable"]))
             return repos
         except Exception as e:
