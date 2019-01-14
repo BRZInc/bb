@@ -4,6 +4,7 @@ import json
 from unittest.mock import patch
 from downloader.bbrequestor import BitBucketRequestor
 from downloader.repo import Repo
+from downloader.project import Project
 
 
 @patch('downloader.bbrequestor.requests')
@@ -13,10 +14,62 @@ class TestBitBucketRequestor(object):
 	project = "SomeProject"
 	repo = "SomeRepo"
 
-	@pytest.fixture(scope="class")
+	@pytest.fixture(scope="function")
 	def repos_json(self):
 		with open("tests/repos-dummy-list.json", "r") as f:
 			return json.load(f)
+
+	@pytest.fixture(scope="function")
+	def projects_json(self):
+		with open("tests/projects-dummy-list.json", "r") as f:
+			return json.load(f)
+
+	def test_get_all_projects_call_request_with_proper_url(self, mocked_request):
+		b = BitBucketRequestor(self.url)
+		b.get_all_projects()
+
+		mocked_request.get.assert_called_with("https://somecorp.bitbucket.org/rest/api/latest/projects/", unittest.mock.ANY)
+
+	@pytest.mark.parametrize('exception', (ConnectionError(), TimeoutError()))
+	def test_get_all_projects_connection_error(self, mocked_request, exception):
+		mocked_request.get.side_effect = exception
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_projects()
+		assert r == []
+
+	def test_get_all_projects_status_200(self, mocked_request, projects_json):
+		mocked_request.get.return_value.OK = True
+		mocked_request.get.return_value.json.return_value = projects_json
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_projects()
+		assert type(r) == list
+		assert len(r) == 2
+		assert isinstance(r[0], Project)
+
+	def test_get_all_projects_none_projects(self, mocked_request):
+		mocked_request.get.return_value.OK = True
+		mocked_request.get.return_value.json.return_value = {"values": None}
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_projects()
+		assert r == []
+
+	def test_get_all_projects_no_values_key(self, mocked_request):
+		mocked_request.get.return_value.OK = True
+		mocked_request.get.return_value.json.return_value = {}
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_projects()
+		assert r == []
+
+	def test_get_all_projects_bad_request(self, mocked_request):
+		mocked_request.get.return_value.OK = False
+
+		b = BitBucketRequestor(self.url)
+		r = b.get_all_projects()
+		assert r == []
 
 	def test_get_all_repos_call_request_with_proper_url(self, mocked_request):
 		b = BitBucketRequestor(self.url)
@@ -27,6 +80,7 @@ class TestBitBucketRequestor(object):
 	@pytest.mark.parametrize('exception', (ConnectionError(), TimeoutError()))
 	def test_get_all_repos_connection_error(self, mocked_request, exception):
 		mocked_request.get.side_effect = exception
+
 		b = BitBucketRequestor(self.url)
 		r = b.get_all_repos(self.project)
 		assert r == []
