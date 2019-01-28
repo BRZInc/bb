@@ -1,0 +1,25 @@
+{
+  "size": 2,
+  "limit": 25,
+  "isLastPage": true,
+  "values": [
+    {
+      "key": "proj1",
+      "id": 101,
+      "name": "Some Project Name 1",
+      "description": "Some good description of a project",
+      "public": false,
+      "type": "NORMAL"
+    },
+    {
+      "key": "proj2",
+      "id": 102,
+      "name": "Some Project Name 2",
+      "description": "Some good description of a project",
+      "public": true,
+      "type": "NORMAL"
+    }
+  ],
+  "start": 0,
+  "nextPageStart": 0
+}
