@@ -1,6 +1,7 @@
 .pytest_cache/
 /dev/*
 /env/*
+/venv/*
 pull-requests.json
 repos-list.json
 __pycache__
